@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f9f7f7;">
+    <nav class=" d-flex shadow-sm navbar bg-white position-fixed" style="width: 100%; z-index: 9999;">
+        <h4 class="px-5">Web Count</h4>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9" >
+                <div class="container-fluid d-flex justify-content-center mt-5">
+                    <div class="mt-5 trigometri">
+                        <h3 class="text-center">Advanced Trigonometry Calculator</h3>
+                        <div class="form-group">
+                            <label for="angle">Enter Angle (in degrees):</label>
+                            <input type="number" id="angle" class="form-control" placeholder="Enter angle in degrees">
+                        </div>
+                    
+                        <button onclick="calculateTrigonometry()" class="btn btn-primary mt-3">Calculate</button>
+                    
+                        <h4 class="mt-4">Hasil:</h4>
+                        <div id="results" class="alert alert-info">
+                            <!-- Results will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" >
+                <script id="replace_with_navbar" src="navbar.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateTrigonometry() {
+        const angle = parseFloat(document.getElementById('angle').value);
+        if (isNaN(angle)) {
+            document.getElementById('results').innerHTML = 'Please enter a valid angle.';
+            return;
+        }
+
+        const radians = angle * (Math.PI / 180);
+
+        const sinValue = Math.sin(radians).toFixed(4);
+        const cosValue = Math.cos(radians).toFixed(4);
+        const tanValue = Math.tan(radians).toFixed(4);
+        const cscValue = (1 / Math.sin(radians)).toFixed(4);
+        const secValue = (1 / Math.cos(radians)).toFixed(4);
+        const cotValue = (1 / Math.tan(radians)).toFixed(4);
+
+        document.getElementById('results').innerHTML = `
+            <strong>Angle:</strong> ${angle}°<br>
+            <strong>Radians:</strong> ${radians.toFixed(4)} rad<br><br>
+            <strong>Sin(${angle}°):</strong> ${sinValue}<br>
+            <strong>Cos(${angle}°):</strong> ${cosValue}<br>
+            <strong>Tan(${angle}°):</strong> ${tanValue}<br>
+            <strong>Csc(${angle}°):</strong> ${cscValue}<br>
+            <strong>Sec(${angle}°):</strong> ${secValue}<br>
+            <strong>Cot(${angle}°):</strong> ${cotValue}
+        `;
+    }
+
+
+    </script>
+</body>
+</html>

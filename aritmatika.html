@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f9f7f7;">
+    <nav class=" d-flex shadow-sm navbar bg-white position-fixed" style="width: 100%; z-index: 9999;">
+        <h4 class="px-5">Web Count</h4>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9" >
+                <div class="container-fluid d-flex justify-content-center mt-5">
+                    <div class="mt-5 trigometri">
+                        <h3>Deret Aritmatika</h3>
+
+                        <label for="firstTerm">Masukkan Suku Pertama (a):</label>
+                        <input type="number" id="firstTerm">
+                        
+                        <label for="commonDifference">Masukkan Beda (d):</label>
+                        <input type="number" id="commonDifference">
+                        
+                        <label for="numTerms">Masukkan Jumlah Suku (n):</label>
+                        <input type="number" id="numTerms">
+                        
+                        <button onclick="hitungDeretAritmatika()" class="btn btn-primary">Hitung</button>
+                        
+                        <div id="result" class="alert alert-info mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" >
+                <script id="replace_with_navbar" src="navbar.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       function hitungDeretAritmatika() {
+    const a = parseFloat(document.getElementById('firstTerm').value);
+    const d = parseFloat(document.getElementById('commonDifference').value);
+    const n = parseFloat(document.getElementById('numTerms').value);
+
+    if (!isNaN(a) && !isNaN(d) && !isNaN(n)) {
+        // Hitung suku ke-n
+        const nthTerm = a + (n - 1) * d;
+
+        // Hitung jumlah deret
+        const sum = (n / 2) * (2 * a + (n - 1) * d);
+
+        // Tampilkan hasil
+        document.getElementById('result').innerHTML = `
+            Suku ke-${n}: ${nthTerm} <br>
+            Jumlah Deret: ${sum}
+        `;
+    } else {
+        document.getElementById('result').innerHTML = 'Masukkan nilai yang valid untuk semua input.';
+    }
+}
+    </script>
+</body>
+</html>

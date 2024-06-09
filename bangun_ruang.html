@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f9f7f7;">
+    <nav class=" d-flex shadow-sm navbar bg-white position-fixed" style="width: 100%; z-index: 9999;">
+        <h4 class="px-5">Web Count</h4>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9" >
+                <div class="container-fluid d-flex justify-content-center  mt-5">
+                    <div class="Solid-Geometry">
+                        <h3 class="text-center">Solid Geometry Calculator</h3>
+                        <div class="form-group">
+                            <label for="solid">Select Solid:</label>
+                            <select id="solid" class="form-control" onchange="showInputs()">
+                                <option value="cube">Kubus</option>
+                                <option value="rectangular-prism">Prisma Segiempat</option>
+                                <option value="triangular-prism">Prisma Segitiga</option>
+                                <option value="sphere">Bola</option>
+                                <option value="cylinder">Tabung</option>
+                                <option value="cone">Kerucut</option>
+                            </select>
+                        </div>
+
+                        <div id="inputs"></div>
+
+                        <button onclick="calculate()" class="btn btn-primary mt-3">Hitung</button>
+
+                        <h4 class="mt-4">Hasil:</h4>
+                        <div id="results" class="alert alert-info">
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-3 " >
+                <script id="replace_with_navbar" src="navbar.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showInputs() {
+        const solid = document.getElementById('solid').value;
+        const inputsDiv = document.getElementById('inputs');
+        inputsDiv.innerHTML = '';
+
+        if (solid === 'cube') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="side">Panjang sisi:</label>
+                    <input type="number" id="side" class="form-control" placeholder="Masukkan panjang sisi" >
+                </div>
+            `;
+        } else if (solid === 'rectangular-prism') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="length">Panjang:</label>
+                    <input type="number" id="length" class="form-control" placeholder="Masukkan panjang">
+                </div>
+                <div class="form-group">
+                    <label for="width">Lebar:</label>
+                    <input type="number" id="width" class="form-control" placeholder="Masukkan lebar">
+                </div>
+                <div class="form-group">
+                    <label for="height">Tinggi:</label>
+                    <input type="number" id="height" class="form-control" placeholder="Masukkan tinggi">
+                </div>
+            `;
+        } else if (solid === 'sphere') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="radius">Jari-jari:</label>
+                    <input type="number" id="radius" class="form-control" placeholder="Masukkan jari-jari">
+                </div>
+            `;
+        } else if (solid === 'cylinder') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="radius">Jari-jari:</label>
+                    <input type="number" id="radius" class="form-control" placeholder="Masukkan radius">
+                </div>
+                <div class="form-group">
+                    <label for="height">Tinggi:</label>
+                    <input type="number" id="height" class="form-control" placeholder="Masukkan tinggi">
+                </div>
+            `;
+        } else if (solid === 'cone') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="radius">Jari-jari:</label>
+                    <input type="number" id="radius" class="form-control" placeholder="Masukkan jari-jari">
+                </div>
+                <div class="form-group">
+                    <label for="height">Tinggi:</label>
+                    <input type="number" id="height" class="form-control" placeholder="Masukkan tinggi">
+                </div>
+            `;
+        } else if (solid === 'triangular-prism') {
+            inputsDiv.innerHTML = `
+                <div class="form-group">
+                    <label for="base">Alas segitiga:</label>
+                    <input type="number" id="base" class="form-control" placeholder="Masukkan alas segitiga">
+                </div>
+                <div class="form-group">
+                    <label for="height">Tinggi segitiga:</label>
+                    <input type="number" id="height" class="form-control" placeholder="Masukkan tinggi segitiga">
+                </div>
+                <div class="form-group">
+                    <label for="length">Panjang prisma:</label>
+                    <input type="number" id="length" class="form-control" placeholder="Masukkan panjang prisma">
+                </div>
+            `;
+        }
+    }
+
+    function calculate() {
+        const solid = document.getElementById('solid').value;
+        let volume, surfaceArea;
+
+        if (solid === 'cube') {
+            const side = parseFloat(document.getElementById('side').value);
+            volume = Math.pow(side, 3);
+            surfaceArea = 6 * Math.pow(side, 2);
+        } else if (solid === 'rectangular-prism') {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const height = parseFloat(document.getElementById('height').value);
+            volume = length * width * height;
+            surfaceArea = 2 * (length * width + width * height + height * length);
+        } else if (solid === 'sphere') {
+            const radius = parseFloat(document.getElementById('radius').value);
+            volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
+            surfaceArea = 4 * Math.PI * Math.pow(radius, 2);
+        } else if (solid === 'cylinder') {
+            const radius = parseFloat(document.getElementById('radius').value);
+            const height = parseFloat(document.getElementById('height').value);
+            volume = Math.PI * Math.pow(radius, 2) * height;
+            surfaceArea = 2 * Math.PI * radius * (radius + height);
+        } else if (solid === 'cone') {
+            const radius = parseFloat(document.getElementById('radius').value);
+            const height = parseFloat(document.getElementById('height').value);
+            volume = (1 / 3) * Math.PI * Math.pow(radius, 2) * height;
+            surfaceArea = Math.PI * radius * (radius + Math.sqrt(Math.pow(radius, 2) + Math.pow(height, 2)));
+        } else if (solid === 'triangular-prism') {
+            const base = parseFloat(document.getElementById('base').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const length = parseFloat(document.getElementById('length').value);
+            volume = 0.5 * base * height * length;
+            surfaceArea = base * length + 2 * height * length + 2 * base * height;
+        }
+
+        document.getElementById('results').innerHTML = `
+            Volume: ${volume.toFixed(2)}<br>
+            Surface Area: ${surfaceArea.toFixed(2)}
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', showInputs);
+
+    </script>
+</body>
+</html>
